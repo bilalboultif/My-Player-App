@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-image: url(https://images.unsplash.com/photo-1609599006353-e629aaabfeae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
+  background-repeat: no-repeat;
+  background-size:cover;
+  overflow: hidden;
+}
+.home-body {
+  height: 25vh;
+}
+.bg-red {
+  background-color: #3b27287e;
+  color: #fff;
+  
+}
+audio {
+  width: 100%;
+  outline: none;
+}
+
+.scroll {
+  height: 100%;
+  overflow: auto;
+  
+}
+.curser {
+  cursor: pointer;
+}
+.active {
+  color: rgb(27, 27, 20) !important;
+  
+}
+
+.menu {
+  border: 1px #000;
+}
