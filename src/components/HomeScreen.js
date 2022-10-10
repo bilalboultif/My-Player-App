@@ -3,20 +3,33 @@ import axios from 'axios'
 import RecitersScreen from './RecitersScreen'
 import PlayerScreen from './PlayerScreen'
 import ChaptersScreen from './ChaptersScreen'
+import LanguageScreen from './LanguageScreen'
 
 const HomeScreen = () => {
   const [reciters, serReciters] = useState([])
   const [chapters, setChapters] = useState([])
 
   const [chapterDetail, setChapterDetail] = useState(null)
+  
   const [reciterDetail, setReciterDetail] = useState(null)
+  const [languages,setLanguages] = useState([])
+  const [languageDetail, setLanguageDetail] = useState(null)
+  useEffect(() => {
+    async function fetchData() {
+      const {
+        data: {languages},
+      } = await axios.get('https://mp3quran.net/api/mp3quran.json')
+      setLanguages(languages)
+    }
+    languages && languages.length && fetchData()
+  },[languages])
 
   // Get All Reciters with Audio
   useEffect(() => {
     async function fetchData() {
       const {
         data: { reciters },
-      } = await axios.get(`https://mp3quran.net/api/_arabic.php`)
+      } = await axios.get(`https://mp3quran.net/api/_english.php`)
 
       serReciters(reciters)
     }
@@ -36,6 +49,10 @@ const HomeScreen = () => {
     reciters && reciters.length > 0 && fetchData()
   }, [reciters])
 
+  const languagesHandler = (language) => {
+      setLanguageDetail(language)
+  }
+
   const reciterHandler = (reciter) => {
     setReciterDetail(reciter)
   }
@@ -44,32 +61,37 @@ const HomeScreen = () => {
   }
 
   return (
-    <div>
-      <div className='row p-0 home-body margin-0'>
-    <div className='p-5 text-center  col-lg-6 pb-0 fs-2 fw-bold min-vh-100 shadow-lg p-0 bg-red'>
-    قائمة القراء      </div>
-      <div className='p-5 text-center  col-lg-6 pb-0 fs-2 fw-bold min-vh-100 shadow-lg p-0 bg-orang'>
-      فهرس السور
-      </div>
-      
+   
+    <div class="row p-0 home-body margin-0">
+      <div class="col-md-12">
+    <PlayerScreen
+            reciterDetail={reciterDetail}
+            chapterDetail={chapterDetail}
+            languageDetail = {languageDetail}
+          />
     </div>
-      
-    <div className='row p-0 home-body'>
-    <div className='col-lg-6  scroll'>
-        <RecitersScreen reciters={reciters} reciterHandler={reciterHandler} />
+    <div class="col-md-12">  
+     
+  
+  
+      <div class="p-5 text-center  col-lg-12 py-0 fs-2 fw-bold shadow-lg">
+       Reciters List
       </div>
-      <div className='col-lg-6  scroll '>
+      <div class="row p-0 home-body">
+         
+        <div class="col-md-12 scroll fs-2 fw-bold">
+        <RecitersScreen reciters={reciters} reciterHandler={reciterHandler} /> 
+        </div>
+        <div class="p-5 text-center  col-lg-12 py-0 fs-2 fw-bold shadow-lg">
+       Surrah    
+      </div>
+        <div class="col-md-12 scroll fs-2 fw-bold">
         <ChaptersScreen chapters={chapters} chapterHandler={chapterHandler} />
-      </div>
-      
-    </div>
-    <div className='col-lg-12  '>
-        <PlayerScreen
-          reciterDetail={reciterDetail}
-          chapterDetail={chapterDetail}
-        />
+        </div>
       </div>
     </div>
+    
+  </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import ReactPlayer from 'react-player'
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 
 const PlayerScreen = ({ reciterDetail, chapterDetail }) => {
   const audiLink = (reciter, number) =>
@@ -17,8 +18,9 @@ const PlayerScreen = ({ reciterDetail, chapterDetail }) => {
             <li
               className={`list-group-item bg-transparent border-0 text-light py-0 d-flex justify-content-between p-0`}
             >
-              <span className='fw-bold'>القارئ: </span>{' '}
+             
               <span>{reciterDetail.name}</span>
+              <span className='fw-bold'>:القارئ </span>{' '}
             </li>
             <hr />
             <li
@@ -30,42 +32,26 @@ const PlayerScreen = ({ reciterDetail, chapterDetail }) => {
             </li>
             <hr />
 
-            <li
-              className={`list-group-item bg-transparent border-0 text-light py-0 d-flex justify-content-between cursor fs-7`}
-            >
-              <span className='fw-bold'>Surrah In English: </span>{' '}
-              <span>{chapterDetail.name_complex}</span>
-            </li>
-            <hr />
-            <li
-              className={`list-group-item bg-transparent border-0 text-light py-0 d-flex justify-content-between cursor fs-7`}
-            >
-              <span className='fw-bold'>مكان النزول: </span>{' '}
-              <span>{chapterDetail.revelation_place}</span>
-            </li>
-            <hr />
-            <li
-              className={`list-group-item bg-transparent border-0 text-light py-0 d-flex justify-content-between cursor fs-7`}
-            >
-              <span className='fw-bold'>Translated Name: </span>{' '}
-              <span>{chapterDetail.translated_name.name}</span>
-            </li>
-            <hr />
+          
+            
 
-            <div className='div '>
-              <ReactPlayer
-                url={audiLink(reciterDetail.Server, chapterDetail.id)}
-                controls={true}
-                playing={true}
-                width='100%'
-                height='60%'
-              />
-            </div>
+         
+      <>
+      
+        {/*<audio />*/}
+        <AudioPlayer
+          autoPlay
+          src={audiLink(reciterDetail.Server, chapterDetail.id)}
+          onPlay={e => console.log("onPlay")}
+          // other props here
+        />
+      </>
+    
           </div>
         </ul>
       ) : (
         <div className='text-center'>
-          <span className='spinner-border'></span>
+          <span className='spinner-border'>بلال </span>
         </div>
       )}
     </div>

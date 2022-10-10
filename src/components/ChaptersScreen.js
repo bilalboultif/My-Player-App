@@ -20,7 +20,7 @@ const ChaptersScreen = ({ chapters, chapterHandler }) => {
                   chapter.id === activeId && 'active'
                 }`}
               >
-                <span>〘{chapter.id}〙 </span> <span>{chapter.name_arabic}</span>
+                <span>〘{chapter.name_simple}〙 </span> <span>{chapter.translated_name.name}</span>
               </li>
               <hr />
             </div>
